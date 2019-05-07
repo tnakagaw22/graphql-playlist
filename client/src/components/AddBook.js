@@ -3,6 +3,14 @@ import { graphql } from 'react-apollo';
 import {getAuthorsQuery} from '../queries/queries';
 
 class AddBook extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            name: '',
+            genre: '',
+            authrorId: ''
+        }
+    }
     displayAuthors(){
         var data = this.props.data;
         if (data.loading){
@@ -13,9 +21,15 @@ class AddBook extends Component {
             })
         }
     }
+
+    submitForm(e){
+        e.preventDefault();
+        console.log(this.state);
+    }
+
     render() {
         return (
-            <form id="add-book"  >
+            <form id="add-book" onSubmit={this.submitForm.bind(this)} >
                 <div className="field">
                     <label>Book name:</label>
                     <input type="text" onChange={(e) => this.setState({ name: e.target.value })} />
